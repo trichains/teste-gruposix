@@ -16,7 +16,7 @@
 .thank-screen::after {
   content: '';
   position: absolute;
-  top: 150%;
+  top: 140%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
