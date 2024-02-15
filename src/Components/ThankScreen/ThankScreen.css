@@ -1,0 +1,44 @@
+.thank-screen {
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.thank-screen h1 {
+  color: #198754;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.thank-screen p {
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.thank-screen button {
+  background-color: black;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.thank-screen button:hover {
+  background-color: #333;
+}
+
+@media screen and (max-width: 600px) {
+  .thank-screen {
+    padding: 10px;
+  }
+}
