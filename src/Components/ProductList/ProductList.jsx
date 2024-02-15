@@ -3,8 +3,6 @@ import { productListPropTypes } from '../../types/PropTypes';
 import './ProductList.css';
 
 const ProductList = ({ products, onProductClick }) => {
-  console.log('Produtos recebidos:', products);
-
   return (
     <div className="product-list-bg">
       <div className="container">

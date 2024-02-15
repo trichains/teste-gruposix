@@ -5,12 +5,12 @@
 .video-container h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: var(--primary-color);
 }
 
 .video-container p {
   font-size: 1.2rem;
-  color: #ddd;
+  color: white;
   margin-bottom: 2rem;
 }
 

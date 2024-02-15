@@ -80,6 +80,16 @@ const PurchaseModal = ({ product, isOpen, onClose, onPurchase }) => {
               />
             </label>
             <label>
+              Número
+              <input
+                type="text"
+                name="street_number"
+                placeholder="123"
+                value={formData.street_number}
+                onChange={handleInputChange}
+              />
+            </label>
+            <label>
               Rua
               <input
                 type="text"
@@ -96,16 +106,6 @@ const PurchaseModal = ({ product, isOpen, onClose, onPurchase }) => {
                 name="district"
                 placeholder="Vila Antonio Vendas"
                 value={formData.district}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Número
-              <input
-                type="text"
-                name="street_number"
-                placeholder="123"
-                value={formData.street_number}
                 onChange={handleInputChange}
               />
             </label>

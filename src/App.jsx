@@ -63,7 +63,6 @@ const App = () => {
       });
 
       if (response.ok) {
-        console.log('Compra realizada com sucesso!');
         setIsModalOpen(false);
         setPurchaseSuccessful(true);
       } else {
