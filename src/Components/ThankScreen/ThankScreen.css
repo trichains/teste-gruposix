@@ -11,7 +11,7 @@
 }
 
 .thank-screen h1 {
-  color: #198754;
+  color: var(--primary-color);
   font-size: 2em;
   margin-bottom: 20px;
 }

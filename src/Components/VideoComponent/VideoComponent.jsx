@@ -12,19 +12,17 @@ const VideoComponent = ({ headline, subHeadline, videoUrl }) => {
   const youTubeVideoId = getYouTubeVideoId(videoUrl);
 
   return (
-    <div className="video-container-bg">
-      <div className="video-container container">
-        <h1>{headline}</h1>
-        {subHeadline && <p>{subHeadline}</p>}
-        {youTubeVideoId && (
-          <iframe
-            title="YouTube Video"
-            width="100%"
-            height="315"
-            src={`https://www.youtube.com/embed/${youTubeVideoId}`}
-            allowFullScreen></iframe>
-        )}
-      </div>
+    <div className="video-container container">
+      <h1>{headline}</h1>
+      {subHeadline && <p>{subHeadline}</p>}
+      {youTubeVideoId && (
+        <iframe
+          title="YouTube Video"
+          width="100%"
+          height="315"
+          src={`https://www.youtube.com/embed/${youTubeVideoId}`}
+          allowFullScreen></iframe>
+      )}
     </div>
   );
 };
