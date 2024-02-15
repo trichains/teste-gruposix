@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { purchaseModalPropTypes } from '../../types/PropTypes';
+import { purchaseModalPropTypes } from '../../../types/PropTypes';
 import './PurchaseModal.css';
 
 const PurchaseModal = ({ product, isOpen, onClose, onPurchase }) => {
@@ -36,9 +36,16 @@ const PurchaseModal = ({ product, isOpen, onClose, onPurchase }) => {
     onClose();
   };
 
+  const renderFormInput = (label, name, placeholder) => (
+    <label key={name}>
+      {label}
+      <input type="text" name={name} placeholder={placeholder} value={formData[name]} onChange={handleInputChange} />
+    </label>
+  );
+
   return (
     <div className={`purchase-modal ${isOpen ? 'open' : ''}`}>
-      {product ? (
+      {product && (
         <div className="modal-content">
           <h2>{product.name}</h2>
           <p className="price">{`R$ ${product.price.toFixed(2)}`}</p>
@@ -49,87 +56,21 @@ const PurchaseModal = ({ product, isOpen, onClose, onPurchase }) => {
             <button className="close-button" onClick={handleCloseModal}>
               <span>&times;</span>
             </button>
-            <label>
-              Nome
-              <input
-                type="text"
-                name="name"
-                placeholder="Seu nome completo"
-                value={formData.name}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Email
-              <input
-                type="email"
-                name="email"
-                placeholder="email@example.com"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Telefone
-              <input
-                type="tel"
-                name="phone_number"
-                placeholder="67 99999 9999"
-                value={formData.phone_number}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Número
-              <input
-                type="text"
-                name="street_number"
-                placeholder="123"
-                value={formData.street_number}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Rua
-              <input
-                type="text"
-                name="street"
-                placeholder="Rua dos vendas "
-                value={formData.street}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Bairro
-              <input
-                type="text"
-                name="district"
-                placeholder="Vila Antonio Vendas"
-                value={formData.district}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Cidade
-              <input
-                type="text"
-                name="city"
-                placeholder="Campo Grande"
-                value={formData.city}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Estado
-              <input type="text" name="state" placeholder="MS" value={formData.state} onChange={handleInputChange} />
-            </label>
+            {renderFormInput('Nome', 'name', 'Seu nome completo')}
+            {renderFormInput('Email', 'email', 'email@example.com')}
+            {renderFormInput('Telefone', 'phone_number', '67 99999 9999')}
+            {renderFormInput('Número', 'street_number', '123')}
+            {renderFormInput('Rua', 'street', 'Rua dos vendas')}
+            {renderFormInput('Bairro', 'district', 'Vila Antonio Vendas')}
+            {renderFormInput('Cidade', 'city', 'Campo Grande')}
+            {renderFormInput('Estado', 'state', 'MS')}
 
             <button type="button" onClick={handleConfirmPurchase}>
               Confirmar
             </button>
           </form>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

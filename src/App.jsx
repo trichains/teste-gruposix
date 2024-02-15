@@ -3,6 +3,7 @@ import VideoComponent from './Components/VideoComponent/VideoComponent';
 import ProductList from './Components/ProductList/ProductList';
 import PurchaseModal from './Components/PurchaseModal/PurchaseModal';
 import ThankScreen from './Components/ThankScreen/ThankScreen';
+import api from '../utils/api';
 
 import './App.css';
 
@@ -12,27 +13,16 @@ const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [purchaseSuccessful, setPurchaseSuccessful] = useState(false);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        'https://api-candidate.ogruposix.com/checkout/95BD9233-8FDC-48AD-B4C5-E5BAF7578C15',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'user-token': '571DEFDE-1A7C-4713-8D08-9EADD19CA91B'
-          }
-        }
-      );
-
-      const result = await response.json();
-      setData(result);
-    } catch (error) {
-      console.error('Erro ao obter dados:', error);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await api.get('checkout/95BD9233-8FDC-48AD-B4C5-E5BAF7578C15');
+        setData(result);
+      } catch (error) {
+        console.error('Erro ao obter dados:', error);
+      }
+    };
+
     fetchData();
   }, []);
 
@@ -47,19 +37,9 @@ const App = () => {
 
   const handleConfirmPurchase = async (formData) => {
     try {
-      console.log('Dados do formulário:', formData);
-      console.log('product_id do produto selecionado:', selectedProduct.product_id);
-
-      const response = await fetch(`https://api-candidate.ogruposix.com/buy/${selectedProduct.product_id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'user-token': '571DEFDE-1A7C-4713-8D08-9EADD19CA91B'
-        },
-        body: JSON.stringify({
-          ...formData,
-          product_id: selectedProduct.product_id
-        })
+      const response = await api.post(`buy/${selectedProduct.product_id}`, {
+        ...formData,
+        product_id: selectedProduct.product_id
       });
 
       if (response.ok) {
@@ -73,27 +53,35 @@ const App = () => {
     }
   };
 
-  return (
-    <div>
-      {data && data.object && !purchaseSuccessful && (
-        <>
-          <VideoComponent
-            headline={data.object[0].video_headline}
-            subHeadline={data.object[0].video_sub_headline}
-            videoUrl={data.object[0].video_url}
+  const renderContent = () => {
+    if (!data) {
+      return <p>Carregando...</p>;
+    }
+
+    const [firstObject] = data.object;
+
+    return (
+      <>
+        {firstObject && !purchaseSuccessful && (
+          <>
+            {firstObject.video_headline && firstObject.video_url && <VideoComponent {...firstObject} />}
+            <ProductList products={firstObject.products} onProductClick={handleProductClick} />
+          </>
+        )}
+        {purchaseSuccessful && <ThankScreen />}
+        {selectedProduct && (
+          <PurchaseModal
+            product={selectedProduct}
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            onPurchase={handleConfirmPurchase}
           />
-          <ProductList products={data.object[0].products} onProductClick={handleProductClick} />
-        </>
-      )}
-      {purchaseSuccessful && <ThankScreen />}
-      <PurchaseModal
-        product={selectedProduct}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onPurchase={handleConfirmPurchase}
-      />
-    </div>
-  );
+        )}
+      </>
+    );
+  };
+
+  return <div>{renderContent()}</div>;
 };
 
 export default App;

@@ -1,20 +1,20 @@
-import { videoComponentPropTypes } from '../../types/PropTypes';
+import { videoComponentPropTypes } from '../../../types/PropTypes';
 
 import './VideoComponent.css';
 
-const VideoComponent = ({ headline, subHeadline, videoUrl }) => {
+const VideoComponent = ({ video_headline, video_sub_headline, video_url }) => {
   const getYouTubeVideoId = (url) => {
-    const videoIdRegex = /(?:youtube\.com\/(?:[^]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\s]{11})/;
+    const videoIdRegex = /(?:youtube\.com\/(?:.+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\s]{11})/;
     const match = url.match(videoIdRegex);
     return match ? match[1] : null;
   };
 
-  const youTubeVideoId = getYouTubeVideoId(videoUrl);
+  const youTubeVideoId = getYouTubeVideoId(video_url);
 
   return (
     <div className="video-container container">
-      <h1>{headline}</h1>
-      {subHeadline && <p>{subHeadline}</p>}
+      <h1>{video_headline}</h1>
+      {video_sub_headline && <p>{video_sub_headline}</p>}
       {youTubeVideoId && (
         <iframe
           title="YouTube Video"

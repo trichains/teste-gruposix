@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const productListPropTypes = {
-  products: PropTypes.arrayOf.isRequired,
+  products: PropTypes.arrayOf(PropTypes.object).isRequired,
   onProductClick: PropTypes.func.isRequired
 };
 
@@ -13,7 +13,7 @@ export const purchaseModalPropTypes = {
 };
 
 export const videoComponentPropTypes = {
-  headline: PropTypes.string.isRequired,
-  subHeadline: PropTypes.string,
-  videoUrl: PropTypes.string.isRequired
+  video_headline: PropTypes.string.isRequired,
+  video_sub_headline: PropTypes.string,
+  video_url: PropTypes.string.isRequired
 };
